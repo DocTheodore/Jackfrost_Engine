@@ -1,0 +1,1 @@
+console.log("Aplicação do cliente iniciado");
