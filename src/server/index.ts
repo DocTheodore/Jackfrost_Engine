@@ -14,7 +14,7 @@ const io = new Server(server);    // inicializar socket.io
 
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../../public')));
 
 app.get('/ping', (req, res) => {
   res.send('pong');

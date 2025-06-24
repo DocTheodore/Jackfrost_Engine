@@ -1,0 +1,1 @@
+// Versão do jogo enviado para o client
