@@ -1,0 +1,5 @@
+class GameLoop {
+    constructor() {
+
+    }
+}
