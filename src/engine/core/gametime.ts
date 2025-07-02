@@ -7,7 +7,7 @@ export class GameTime {
 
     private constructor() {} // CLASSE ESTATICA
     
-    static update() {
+    static Update() {
         const now = performance.now();
         this._delta = Math.min((now - this._last) / 1000, 0.1);
         this._last = now;
