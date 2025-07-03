@@ -16,7 +16,7 @@ export class GameLoop {
             callback(GameTime.delta);
             requestAnimationFrame(loop);
         };
-        loop;
+        loop();
     }
 
     static Stop() {
