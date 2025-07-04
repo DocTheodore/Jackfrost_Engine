@@ -1,0 +1,1 @@
+export const TILE_SIZE = 16; // Tamaho de um tile individual
