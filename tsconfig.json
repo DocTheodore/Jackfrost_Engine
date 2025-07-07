@@ -10,6 +10,11 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "paths": {
+      "@client/*": ["./src/client/"],
+      "@engine/*": ["./src/engine/"],
+    }
   }
 }

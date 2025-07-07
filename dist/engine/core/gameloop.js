@@ -1,4 +1,4 @@
-import { GameTime } from "./gametime";
+import { GameTime } from "./gametime.js";
 export class GameLoop {
     constructor() { } // CLASSE ESTATICA
     // Loop principal do jogo

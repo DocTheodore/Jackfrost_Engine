@@ -1,4 +1,4 @@
-import { GameTime } from "./gametime";
+import { GameTime } from "./gametime.js";
 
 export class GameLoop {
     private static _running = false;
@@ -16,6 +16,7 @@ export class GameLoop {
             callback(GameTime.delta);
             requestAnimationFrame(loop);
         };
+        
         loop();
     }
 
