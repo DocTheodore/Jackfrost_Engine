@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Side Story</title>
+    <style>
+        body {
+            background-color: #222;
+            margin: 0;
+        }
+        canvas {
+            background-color: #fff;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+        }
+        div#log {
+            background: rgba(0, 0, 0, 0.90);
+            font-family: Arial, sans-serif;
+            font-size: 12pt;
+            color: white;
+            text-align: left;
+            padding: 10px 10px;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div id="log">
+        <div id="fps">Fps: 00.0</div>
+        <p>==================</p>
+        <div id="console">Debbug Console: </div>
+    </div>
+    <canvas id="GameScreen"></canvas>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="game.js"></script>
+</body>
+</html>
