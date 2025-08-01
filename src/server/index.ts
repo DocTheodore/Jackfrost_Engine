@@ -9,11 +9,12 @@ const __dirname = path.dirname(__filename);
 const app = express();
 let port = 3000;
 
-app.use('/build', express.static(path.join(__dirname, 'build')));
+app.use('/build', express.static(path.join(__dirname, '../../build')));
+app.use('/node_modules', express.static(path.join(__dirname, '../../node_modules')));
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, '../../public/index.html'));
-    console.log("Página carregada");
+    console.log("Página carregada", path.join(__dirname, '../../node_modules'));
 });
 
 app.listen(port, () => {
