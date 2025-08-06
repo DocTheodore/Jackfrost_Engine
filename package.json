@@ -6,14 +6,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./build/server/index.js",
     "build": "npx tsc",
-    "dev": "tsx watch ./src/server/index.ts"
+    "dev-ts": "npx tsc --watch",
+    "serve": "nodemon ./build/server/index.js",
+    "dev": "gnome-terminal -- bash -c 'npm run dev-ts; exec bash' && npm run serve"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DocTheodore/Jackfrost_Engine.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Thiago Moreira",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/DocTheodore/Jackfrost_Engine/issues"
@@ -29,7 +31,7 @@
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
-    "concurrently": "^9.2.0",
+    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"

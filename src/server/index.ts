@@ -53,5 +53,6 @@ app.get("/", (req:any, res:any) => {
 });
 
 server.listen(3000, () => {
+  console.clear();
   console.log("Servidor rodando em http://localhost:3000");
 });
