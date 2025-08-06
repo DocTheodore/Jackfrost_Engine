@@ -47,7 +47,7 @@ io.on("connection", (socket) => {
 app.use('/build', express.static(path.join(__dirname, '../../build')));
 app.use('/node_modules', express.static(path.join(__dirname, '../../node_modules')));
 
-app.get("/", (req, res) => {
+app.get("/", (req:any, res:any) => {
   res.sendFile(path.join(__dirname, '../../public/index.html'));
   console.log("Página carregada");
 });
