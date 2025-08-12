@@ -12,6 +12,8 @@ import type {
   SocketData
 } from "./server";
 
+import { ServerTime } from "./settings/servertime.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -25,6 +27,12 @@ const io = new Server<
   InterServerEvents,
   SocketData
 >(server);
+
+const servertime = ServerTime
+
+servertime.Start((delta, time) => {
+  io.emit("serverTick", servertime.tick);
+})
 
 io.on("connection", (socket) => {
   console.log("Novo cliente conectado: ", socket.id);
@@ -40,6 +48,7 @@ io.on("connection", (socket) => {
 
   socket.on("hello", () => {
     console.log("hello ", socket.id);
+    console.log("basicEmit", ServerTime.tick, "tick atual", Buffer.from([0]));
   });
 });
 

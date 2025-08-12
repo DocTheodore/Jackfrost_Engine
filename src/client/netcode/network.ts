@@ -8,10 +8,13 @@ const socket:any = io();
 // Funções de Envio
 // =============================
 
-socket.emit("hello");
+export const debbugNet = () => {
+    socket.emit("hello");
+}
 
 // =============================
 // Funções Recebidas
 // =============================
 
 socket.on("noArg", () => {console.log("Nenhum argumento")});
+socket.on("serverTick", (tick:number) => console.log(`tick atual do servidor: ${tick} `));
