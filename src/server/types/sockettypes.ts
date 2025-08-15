@@ -1,9 +1,7 @@
-import { Server, Socket } from "socket.io";
-import { ServerTime } from "./settings/servertime.js";
+import { PlayerData } from "./playertypes.js";
+
 export interface ServerToClientEvents {
-  noArg: () => void;
-  basicEmit: (a: number, b: string, c: Buffer) => void;
-  withAck: (d: string, callback: (e: number) => void) => void;
+  login: (acepted:boolean, clientId:string, currentPlayers:Array<PlayerData>) => void;
   serverTick: (d: number) => void;
 }
 
