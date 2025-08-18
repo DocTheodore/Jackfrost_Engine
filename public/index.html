@@ -28,6 +28,24 @@
             left: 20px;
             z-index: 2;
         }
+        div#debbug {
+            background: rgba(0, 0, 0, 0.90);
+            font-family: Arial, sans-serif;
+            font-size: 15pt;
+            color: white;
+            text-align: left;
+            padding: 1.75rem 2.25rem;
+            position: fixed;
+            top: 38.75%;
+            left: 38.75%;
+            z-index: 2;
+        }
+        .show {
+            display: block;
+        }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -35,6 +53,12 @@
         <div id="fps">Fps: 00.0</div>
         <p>==================</p>
         <div id="console">Debbug Console: </div>
+    </div>
+    <div id="debbug" class="">
+        <div>
+            <p>Digite o seu nome:</p>
+            <p><input type="text"></p>
+        </div>
     </div>
     <canvas id="GameScreen"></canvas>
     <script src="/socket.io/socket.io.js"></script>

@@ -1,6 +1,20 @@
 import { PlayerData } from "../types/playertypes";
+import { MAX_PLAYERS } from "./config";
 
-const players = new Map<string, PlayerData>(); // key = ip
+const players = new Map();
+const idPool = Array.from({ length: MAX_PLAYERS }, (_, i) => i + 1);
+
+export function assignPlayerId() {
+  console.log(idPool);
+  return idPool.shift();
+}
+
+export function releasePlayerId(id:number) {
+  if (typeof id === 'number' && !idPool.includes(id)) {
+    idPool.push(id);
+    idPool.sort((a, b) => a - b);
+  }
+}
 
 export function addPlayer(player: PlayerData) {
   players.set(player.ipAddress, player);

@@ -1,6 +1,6 @@
 import { Server, Socket } from "socket.io";
 import { MAX_PLAYERS } from "./config.js";
-import { playerCount, addPlayer, getAllPlayers, removePlayer } from "./players.js";
+import { playerCount, addPlayer, getAllPlayers, removePlayer, assignPlayerId, releasePlayerId } from "./players.js";
 import { PlayerData } from "../types/playertypes.js";
 
 // Broadcast de dados para todos os jogadores (io)
@@ -19,6 +19,12 @@ export function registerSocketEvents(io: Server) {
             socket.disconnect();
             return;
         }
+        const clientId = assignPlayerId();
+        if(!clientId) {
+            socket.emit("serverFull");
+            socket.disconnect();
+            return;
+        }
 
         // =============================
         // Configurações do jogador atual
@@ -28,10 +34,9 @@ export function registerSocketEvents(io: Server) {
         const currentPlayer: PlayerData = {
             socketId: socket.id,
             ipAddress: clientIp,
-            playerId: playerCount(),
+            playerId: clientId,
             playerName: ''
         }
-
         addPlayer(currentPlayer);
 
         console.log(`Jogadores atuais:`, getAllPlayers());
@@ -55,6 +60,7 @@ export function registerSocketEvents(io: Server) {
         socket.on("disconnect", () => {
             console.log(`Jogador ${currentPlayer.playerId} [${clientIp}] desconectado\n`);
             removePlayer(clientIp);
-        })
+            releasePlayerId(clientId);
+        });
     });
 }
