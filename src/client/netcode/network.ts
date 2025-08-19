@@ -11,6 +11,9 @@ export const Netdata = {
     myId: "",
     serverTick: 0,
 };
+export const localData = {
+    name: "",
+}
 
 // =============================
 // Funções de Envio
