@@ -1,5 +1,5 @@
-import { PlayerData } from "../types/playertypes";
-import { MAX_PLAYERS } from "./config";
+import { PlayerData } from "../types/playertypes.js";
+import { MAX_PLAYERS } from "./config.js";
 
 const players = new Map();
 const idPool = Array.from({ length: MAX_PLAYERS }, (_, i) => i + 1);

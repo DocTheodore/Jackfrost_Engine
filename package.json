@@ -4,10 +4,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./build/server/index.js",
+    "start": "node ./build/server/main/index.js",
     "build": "npx tsc",
     "dev-ts": "npx tsc --watch",
-    "serve": "nodemon ./build/server/index.js",
+    "serve": "nodemon ./build/server/main/index.js",
     "dev": "gnome-terminal -- bash -c 'npm run dev-ts; exec bash' && npm run serve"
   },
   "repository": {

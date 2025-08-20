@@ -15,7 +15,7 @@ window.sendNameFromInput = function() {
 function Update(dt: number) {
     gametime.Update();
     //console.log(dt, gametime.delta);
-    debbugNet();
+    //debbugNet();
 }
 
 GameLoop.Start(Update);
