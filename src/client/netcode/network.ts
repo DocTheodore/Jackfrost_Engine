@@ -20,7 +20,7 @@ export const localData = {
 // =============================
 
 export const debbugNet = () => {
-    socket.emit("hello");
+    //socket.emit("hello");
 }
 
 // =============================

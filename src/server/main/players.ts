@@ -1,19 +1,20 @@
 import { PlayerData } from "../types/playertypes.js";
+import { IdPool } from "../utils/idHandler.js";
 import { MAX_PLAYERS } from "./config.js";
 
 const players = new Map();
-const idPool = Array.from({ length: MAX_PLAYERS }, (_, i) => i + 1);
+const playerIdPool = new IdPool(MAX_PLAYERS);
+const colorIdPool = new IdPool(MAX_PLAYERS);
 
 export function assignPlayerId() {
-  console.log(idPool);
-  return idPool.shift();
+  console.log(playerIdPool);
+  colorIdPool.assignId();
+  return playerIdPool.assignId();
 }
 
 export function releasePlayerId(id:number) {
-  if (typeof id === 'number' && !idPool.includes(id)) {
-    idPool.push(id);
-    idPool.sort((a, b) => a - b);
-  }
+  playerIdPool.releaseId(id);
+  colorIdPool.releaseId(id);
 }
 
 export function addPlayer(player: PlayerData) {
@@ -33,5 +34,5 @@ export function getAllPlayers() {
 }
 
 export function playerCount() {
-    return getAllPlayers().length;
+  return getAllPlayers().length;
 }
