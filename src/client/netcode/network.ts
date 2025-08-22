@@ -22,6 +22,9 @@ export const localData = {
 export const debbugNet = () => {
     //socket.emit("hello");
 }
+export function __sendLoginData(data: {name:string, color:number}) {
+    socket.emit("sendLoginData", data);
+}
 function __clientAcepted() {
     socket.emit("clientAcepted");
 }
@@ -40,7 +43,7 @@ socket.on("login", (acepted:boolean, clientId:string, currentPlayers:Array<Playe
     console.log(`Conectado como [${clientId}]`)
     console.log(`Jogadores conectados: `, currentPlayers);
     Netdata.myId = clientId;
-    
+
     __clientAcepted();
 })
 

@@ -1,7 +1,8 @@
 import { Server, Socket } from "socket.io";
 import { MAX_PLAYERS } from "./config.js";
-import { playerCount, addPlayer, getAllPlayers, removePlayer, assignPlayerId, releasePlayerId, getAllColors } from "./players.js";
+import { playerCount, addPlayer, getAllPlayers, removePlayer, assignPlayerId, releasePlayerId, unavailableColors } from "./players.js";
 import { PlayerData } from "../types/playertypes.js";
+import { selectedColor } from "../../client/web/selectcolor.js";
 
 // Broadcast de dados para todos os jogadores (io)
 // Envio de dados para um jogadores especifico (socket)
@@ -65,7 +66,14 @@ export function registerSocketEvents(io: Server) {
 
         socket.on("clientAcepted", () => {
             console.log("Cliente confirmou a conexão");
-            socket.emit("availableColors", getAllColors());
-        })
+            socket.emit("availableColors", unavailableColors);
+        });
+
+        socket.on("sendLoginData", (data:{name:string, color:number}) => {
+            currentPlayer.playerName = data.name;
+            unavailableColors.push(data.color);
+            console.log(`\n\nJogadores atuais:`, getAllPlayers());
+            io.emit("availableColors", unavailableColors);
+        });
     });
 }

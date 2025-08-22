@@ -4,17 +4,15 @@ import { MAX_PLAYERS } from "./config.js";
 
 const players = new Map();
 const playerIdPool = new IdPool(MAX_PLAYERS);
-const colorIdPool = new IdPool(MAX_PLAYERS);
+export const unavailableColors:number[] = [];
 
 export function assignPlayerId() {
   console.log(playerIdPool);
-  colorIdPool.assignId();
   return playerIdPool.assignId();
 }
 
 export function releasePlayerId(id:number) {
   playerIdPool.releaseId(id);
-  colorIdPool.releaseId(id);
 }
 
 export function addPlayer(player: PlayerData) {
@@ -31,10 +29,6 @@ export function getPlayer(ipAddress: string) {
 
 export function getAllPlayers() {
   return Array.from(players.values());
-}
-
-export function getAllColors() {
-    return colorIdPool.getArray();
 }
 
 export function playerCount() {
