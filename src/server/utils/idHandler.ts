@@ -25,4 +25,8 @@ export class IdPool {
     releaseId(id: number) {
         this.pool.add(id);
     }
+
+    getArray() {
+        return Array.from(this.pool);
+    }
 }

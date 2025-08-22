@@ -33,6 +33,10 @@ export function getAllPlayers() {
   return Array.from(players.values());
 }
 
+export function getAllColors() {
+    return colorIdPool.getArray();
+}
+
 export function playerCount() {
   return getAllPlayers().length;
 }

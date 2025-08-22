@@ -1,6 +1,6 @@
 import { Server, Socket } from "socket.io";
 import { MAX_PLAYERS } from "./config.js";
-import { playerCount, addPlayer, getAllPlayers, removePlayer, assignPlayerId, releasePlayerId } from "./players.js";
+import { playerCount, addPlayer, getAllPlayers, removePlayer, assignPlayerId, releasePlayerId, getAllColors } from "./players.js";
 import { PlayerData } from "../types/playertypes.js";
 
 // Broadcast de dados para todos os jogadores (io)
@@ -62,5 +62,10 @@ export function registerSocketEvents(io: Server) {
             removePlayer(clientIp);
             releasePlayerId(clientId);
         });
+
+        socket.on("clientAcepted", () => {
+            console.log("Cliente confirmou a conexão");
+            socket.emit("availableColors", getAllColors());
+        })
     });
 }

@@ -1,4 +1,5 @@
 import { PlayerData } from "../../server/types/playertypes.js";
+import { setSelectedColor, resetSelectedColor } from "../web/selectcolor.js";
 
 declare const io:any;
 const socket:any = io();
@@ -18,9 +19,11 @@ export const localData = {
 // =============================
 // Funções de Envio
 // =============================
-
 export const debbugNet = () => {
     //socket.emit("hello");
+}
+function __clientAcepted() {
+    socket.emit("clientAcepted");
 }
 
 // =============================
@@ -37,7 +40,36 @@ socket.on("login", (acepted:boolean, clientId:string, currentPlayers:Array<Playe
     console.log(`Conectado como [${clientId}]`)
     console.log(`Jogadores conectados: `, currentPlayers);
     Netdata.myId = clientId;
+    
+    __clientAcepted();
 })
+
+socket.on("availableColors", (unavailableColors: number[]) => {
+    console.log("Cores indisponiveis:", unavailableColors);
+
+    // Reset
+    resetSelectedColor();
+    
+    // Marcar cores indisponíveis
+    document.querySelectorAll(".playerColorBox").forEach((el) => {
+        el.classList.remove("unavailable");
+    });
+    unavailableColors.forEach((colorId) => {
+        const el = document.getElementById(`pc_${colorId}`);
+        if (el) el.classList.add("unavailable");
+    });
+
+    // Pegar a primeira cor disponível
+    const firstAvailable = Array.from(document.querySelectorAll(".playerColorBox"))
+        .map((el) => Number(el.id.replace(/^pc_/, "")))
+        .sort((a, b) => a - b)
+        .find((id) => !unavailableColors.includes(id));
+
+    if (firstAvailable !== undefined) {
+        setSelectedColor(firstAvailable);
+        console.log("Cor selecionada automaticamente:", firstAvailable);
+    }
+});
 
 socket.on("noArg", () => {console.log("Nenhum argumento")});
 

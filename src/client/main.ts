@@ -1,6 +1,7 @@
 import { GameLoop } from "./core/gameloop.js";
 import { GameTime } from "./core/gametime.js";
 import { debbugNet } from "./netcode/network.js";
+import { selectedColor } from "./web/selectcolor.js";
 
 const gameloop = GameLoop;
 const gametime = GameTime;
@@ -8,7 +9,7 @@ const gametime = GameTime;
 // Funções do HTML
 window.sendNameFromInput = function() {
     const name = (document.getElementById('playerNameBox') as HTMLInputElement).value || '';
-    console.log(name);
+    console.log(name, selectedColor);
 }
 
 // Funções de loop
@@ -18,4 +19,4 @@ function Update(dt: number) {
     debbugNet();
 }
 
-GameLoop.Start(Update);
+gameloop.Start(Update);
