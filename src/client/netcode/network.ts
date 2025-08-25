@@ -1,10 +1,26 @@
 import { PlayerData } from "../../server/types/playertypes.js";
 import { setSelectedColor, resetSelectedColor } from "../web/selectcolor.js";
 
-declare const io:any;
-const socket:any = io();
+declare const io: any;
+let socket: any = io();
 
-console.log("Abrindo conexão");
+// Função de conexão
+const connectSocket = () => {
+    socket = io();
+
+    // Quando o socket se conecta
+    socket.on("connect", () => {
+        console.log("Conexão estabelecida");
+    });
+
+    // Se houver erro de conexão
+    socket.on("connect_error", (error: any) => {
+        console.error("Erro de conexão:", error);
+        setTimeout(connectSocket, 1000);
+    });
+};
+connectSocket();
+
 // =============================
 // Variaveis
 // =============================
@@ -14,7 +30,7 @@ export const Netdata = {
 };
 export const localData = {
     name: "",
-}
+};
 
 // =============================
 // Funções de Envio
@@ -22,9 +38,11 @@ export const localData = {
 export const debbugNet = () => {
     //socket.emit("hello");
 }
-export function __sendLoginData(data: {name:string, color:number}) {
+
+export function __sendLoginData(data: {name: string, color: number}) {
     socket.emit("sendLoginData", data);
 }
+
 function __clientAcepted() {
     socket.emit("clientAcepted");
 }
@@ -35,17 +53,18 @@ function __clientAcepted() {
 socket.on("connection", () => {
     console.log("Servidor encontrado");
 });
-socket.on("login", (acepted:boolean, clientId:string, currentPlayers:Array<PlayerData>) => {
-    if(!acepted) {
+
+socket.on("login", (acepted: boolean, clientId: string, currentPlayers: Array<PlayerData>) => {
+    if (!acepted) {
         alert("Conexão recusada");
-        return
+        return;
     }
-    console.log(`Conectado como [${clientId}]`)
+    console.log(`Conectado como [${clientId}]`);
     console.log(`Jogadores conectados: `, currentPlayers);
     Netdata.myId = clientId;
 
     __clientAcepted();
-})
+});
 
 socket.on("availableColors", (unavailableColors: number[]) => {
     console.log("Cores indisponiveis:", unavailableColors);
@@ -57,6 +76,7 @@ socket.on("availableColors", (unavailableColors: number[]) => {
     document.querySelectorAll(".playerColorBox").forEach((el) => {
         el.classList.remove("unavailable");
     });
+
     unavailableColors.forEach((colorId) => {
         const el = document.getElementById(`pc_${colorId}`);
         if (el) el.classList.add("unavailable");
@@ -76,7 +96,7 @@ socket.on("availableColors", (unavailableColors: number[]) => {
 
 socket.on("noArg", () => {console.log("Nenhum argumento")});
 
-socket.on("serverTick", (tick:number) => {
+socket.on("serverTick", (tick: number) => {
     Netdata.serverTick = tick;
-    //console.log(`tick atual do servidor: ${tick} `);
+    //console.log(`tick atual do servidor: ${tick}`);
 });
